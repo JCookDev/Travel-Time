@@ -4,11 +4,36 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
+  <title>Bon Voyage</title>
 </head>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
+  <main>
+    <section class="main-section">
+     <header class="main nav--bar">
+       <section>
+         <h1 class="main__menu-text">Bon Voyage</h1>
+         <h2 id="welcomeMessage">Welcome back, [user]!</h2>
+         <h2 class="booking-heading">Wanna explore?</h2>
+         <section class="book-trip" id="bookTripBar">
+           <form>
+             <label class="destinations input" id="destinations">Destinations:</label>
+             <select id="destinationsDropDown" placeholder="destination" required></select>
+             <label for="startDate">Start Date:</label>
+             <input id="bookingDateInput" type="date" placeholder="dd/mm/yyyy" required/>
+             <label for="duration">Duration:</label>
+             <input type="number" min="1" placeholder="Duration" id="durationInput" required/>
+             <label for="guests">Guests:</label>
+             <input type="number" name="guests" min="1" placeholder="Guests" id="guestsInput" required/>
+              <button type="submit" name="button" class="estimate-button button" id="estimateButton">Get estimate</button>
+              <button type="submit" id="submitButton">Book trip!</button>
+           </form>
+         </section>
+       </section>
+       <h2 id="estimateMessage"></h2>
+     </header>
+   </section>
+  </main>
+
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
 
