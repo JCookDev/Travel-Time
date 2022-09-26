@@ -32,7 +32,7 @@ const fetchApiCalls = () => {
     let tripData = data[1].trips;
     let destinationData = data[2].destinations;
     currentTraveler = new Traveler(travelerData[getRandomIndex(travelerData)])
-    console.log(currentTraveler);
+    //console.log(currentTraveler);
     travelerRepo = new TravelerRepo(travelerData);
     travelerRepo.instantiateTraveler();
     tripRepo = new TripRepo(tripData);
@@ -47,6 +47,8 @@ const fetchApiCalls = () => {
 const loadPage = () => {
   greetTraveler();
   displayTripCards();
+  calculateAnnualExpenditures();
+  displayAmountSpent();
 };
 
 const greetTraveler = () => {
@@ -60,7 +62,7 @@ const displayTripCards = () => {
     trip.getTripTimeFrame(trip);
 
     tripCards.appendChild(createTripCard(trip, destination));
-    console.log(tripRepo.tripList);
+    //console.log(tripRepo.tripList);
   });
 };
 
@@ -97,6 +99,23 @@ const createTripCard = (trip, destination) => {
   `;
 
   return currentTripCard;
+};
+
+const calculateAnnualExpenditures = () => {
+  const userTrips = tripRepo.filterTripsByTraveler(currentTraveler.id);
+  //console.log(userTrips)
+  const result = userTrips.reduce((acc, trip) => {
+    if (trip.date.includes("2022") && trip.status === "approved") {
+      acc += trip.cost;
+    }
+    return acc;
+  }, 0);
+  return result.toFixed(2);
+};
+
+const displayAmountSpent = () => {
+  let amountSpent = calculateAnnualExpenditures();
+  expenditures.innerHTML = `You've spent a total of $${amountSpent} on travel this year!`;
 };
 
 
