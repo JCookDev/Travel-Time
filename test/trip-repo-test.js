@@ -2,7 +2,7 @@ import chai from "chai";
 const expect = chai.expect;
 
 import Trip from "../src/Trips";
-//import TripRepo from "../src/Trip-Repo";
+import TripRepo from "../src/Trip-Repo";
 import Destination from "../src/Destinations";
 
 describe("TripRepo", () => {
@@ -34,19 +34,19 @@ describe("TripRepo", () => {
     tripRepo = new TripRepo([trip1, trip2]);
   });
 
-  it.skip("should be a function", () => {
+  it("should be a function", () => {
     expect(TripRepo).to.be.a("function");
   });
 
-  it.skip("should be an instance of TripRepo", () => {
+  it("should be an instance of TripRepo", () => {
     expect(tripRepo).to.be.an.instanceof(TripRepo);
   });
 
-  it.skip("should store multiple trips for multiple travelers", () => {
+  it("should store multiple trips for multiple travelers", () => {
     expect(tripRepo.data).to.deep.equal([trip1, trip2]);
   });
 
-  it.skip("should find trip by id", () => {
+  it("should find trip by id", () => {
     const foundTrip1 = tripRepo.findTrip(trip1.id);
     expect(foundTrip1).to.equal(trip1);
     const foundTrip2 = tripRepo.findTrip(trip2.id);
