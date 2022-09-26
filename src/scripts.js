@@ -9,6 +9,7 @@ const dayjs = require("dayjs");
 
 // Query Selectors
 const welcomeMessage = document.querySelector("#welcomeMessage");
+const expenditures = document.querySelector("#expenditures");
 const destinationsDropDown = document.querySelector("#destinationsDropDown");
 const bookingDateInput = document.querySelector("#bookingDateInput");
 const durationInput = document.querySelector("#durationInput");
@@ -31,6 +32,7 @@ const fetchApiCalls = () => {
     let tripData = data[1].trips;
     let destinationData = data[2].destinations;
     currentTraveler = new Traveler(travelerData[getRandomIndex(travelerData)])
+    console.log(currentTraveler);
     travelerRepo = new TravelerRepo(travelerData);
     travelerRepo.instantiateTraveler();
     tripRepo = new TripRepo(tripData);
@@ -44,11 +46,59 @@ const fetchApiCalls = () => {
 
 const loadPage = () => {
   greetTraveler();
+  displayTripCards();
 };
 
 const greetTraveler = () => {
   welcomeMessage.innerHTML = `Welcome back, ${currentTraveler.returnFirstName()}!`;
 };
+
+const displayTripCards = () => {
+  tripRepo.tripList.forEach(trip => {
+    const destination = destinationRepo.findDestination(trip.destinationID);
+    trip.calculateSingleTrip(destination);
+    trip.getTripTimeFrame(trip);
+
+    tripCards.appendChild(createTripCard(trip, destination));
+    console.log(tripRepo.tripList);
+  });
+};
+
+const createTripCard = (trip, destination) => {
+  let currentTripCard = document.createElement("article");
+  currentTripCard.setAttribute("id", trip.id);
+  currentTripCard.setAttribute("class", "trip-card");
+  currentTripCard.setAttribute("tabIndex", 0);
+
+  currentTripCard.innerHTML = `
+  <img
+    src=${destination.image}
+    alt=${destination.alt}
+  />
+  <header class="trip-header">
+    <p class='category ${trip.timeFrame}-category'>${trip.timeFrame}</p>
+    <h3>${destination.destination}</h3>
+    <h4>${dayjs(trip.date).format("MM/DD/YYYY")}</h4>
+  </header>
+  <div class="content">
+    <span class="stat">
+      <p class="detail">${trip.travelers}</p>
+      <p>Travelers</p>
+    </span>
+    <span class="stat">
+      <p class="detail">${trip.duration}</p>
+      <p>Nights</p>
+    </span>
+  </div>
+  <footer>
+    <p>Trip Cost</p>
+    <p class="detail">$${trip.cost.toFixed(2)}</p>
+  </footer>
+  `;
+
+  return currentTripCard;
+};
+
 
 const getRandomIndex = (array) => {
   return Math.floor(Math.random() * array.length);
