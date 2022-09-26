@@ -2,7 +2,7 @@ import chai from "chai";
 const expect = chai.expect;
 
 import Destination from "../src/Destinations";
-//import DestinationRepo from "../src/Destination-Repo";
+import DestinationRepo from "../src/Destination-Repo";
 
 describe("DestinationRepo", () => {
   let destination1;
@@ -29,25 +29,25 @@ describe("DestinationRepo", () => {
     destinationRepo = new DestinationRepo([destination1, destination2]);
   });
 
-  it.skip("should be a function", () => {
+  it("should be a function", () => {
     expect(DestinationRepo).to.be.a("function");
   });
 
-  it.skip("should be an instance of DestinationRepo", () => {
+  it("should be an instance of DestinationRepo", () => {
     expect(destinationRepo).to.be.an.instanceof(DestinationRepo);
   });
 
-  it.skip("should store data for multiple destinations", () => {
+  it("should store data for multiple destinations", () => {
     expect(destinationRepo.data).to.deep.equal([destination1, destination2]);
   });
 
-  it.skip("should mutate data of multiple destination instances", () => {
+  it("should mutate data of multiple destination instances", () => {
     destinationRepo.instantiateDestination();
     expect(destinationRepo.data[0]).to.be.an.instanceOf(Destination);
     expect(destinationRepo.data[1]).to.be.an.instanceOf(Destination);
   });
 
-  it.skip("should find destination by id", () => {
+  it("should find destination by id", () => {
     let findDestination1 = destinationRepo.findDestination(destination1.id);
     expect(findDestination1).to.deep.equal(destination1);
     let findDestination2 = destinationRepo.findDestination(destination2.id);
