@@ -31,7 +31,7 @@ button {
   border-radius: 1rem;
   width: 5rem;
   padding: 1px;
-  background-color: navy;
+  background-color: #3a2e81;
   color: white;
   font-weight: bolder;
   height: 1.75rem;
@@ -48,12 +48,13 @@ button, input, optgroup, select, textarea {
   padding-left: 2rem;
   font-family: 'Kaushan Script', cursive;
   font-weight: 400;
+  color: #0f0164
 }
 
 .book-trip {
   background: rgba(255, 255, 255, 0.6);
   padding: 2rem;
-  border-radius: 0rem;
+  border-radius: 1rem;
 }
 
 .trip-cards {
