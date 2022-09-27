@@ -136,10 +136,14 @@ button, input, optgroup, select, textarea {
 }
 
 .past-category {
-   background-color: #fbcbb9;
-   color: #333333;
+   background-color: #850101;
+   color: white;
 }
 
 .upcoming-category {
-   background-color: #990649;
+   background-color: #007d47;
+}
+
+.hidden {
+  display: none;
 }
