@@ -23,7 +23,7 @@ const tripCards = document.querySelector(".trip-cards");
 let today = dayjs().format("YYYY/MM/DD");
 let travelerRepo, tripRepo, destinationRepo;
 let currentTraveler;
-let travelerInput;
+//let travelerInput;
 
 //Functions
 const fetchApiCalls = () => {
@@ -69,6 +69,31 @@ const greetTraveler = () => {
   welcomeMessage.innerHTML = `Welcome back, ${currentTraveler.returnFirstName()}!`;
 };
 
+
+const calculateAnnualExpenditures = () => {
+  const userTrips = tripRepo.filterTripsByTraveler(currentTraveler.id);
+  console.log(userTrips)
+  const result = userTrips.reduce((acc, trip) => {
+    if (trip.date.includes("2022") && trip.status === "approved") {
+      acc += trip.cost;
+    }
+    return acc;
+  }, 0);
+  return result.toFixed(2);
+};
+
+const displayAmountSpent = () => {
+  let amountSpent = calculateAnnualExpenditures();
+  expenditures.innerHTML = `You've spent a total of $${amountSpent} on travel this year!`;
+};
+
+const loadDestinationOptions = () => {
+  destinationRepo.data.forEach(destination => {
+    destinationsDropDown.innerHTML += `<option value="${destination.id}">${destination.destination}</option>`;
+  });
+  return;
+};
+
 const displayTripCards = () => {
   tripRepo.tripList.forEach(trip => {
     const destination = destinationRepo.findDestination(trip.destinationID);
@@ -78,6 +103,26 @@ const displayTripCards = () => {
     tripCards.appendChild(createTripCard(trip, destination));
     //console.log(tripRepo.tripList);
   });
+  clearInput();
+};
+
+const displayTripEstimate = event => {
+  let estimate = calculateEstimatedCost();
+  estimateMessage.innerHTML = `Your estimated trip cost is $${estimate}! Press "Book trip" to confirm or choose a different trip!`;
+};
+
+const calculateEstimatedCost = form => {
+  event.preventDefault();
+  let newTripDestination = destinationRepo.findDestination(
+    parseInt(destinationsDropDown.value)
+  );
+  let newTripDuration = durationInput.value;
+  let newTripTravelers = guestsInput.value;
+  let newTripCost =
+    (newTripDestination.estimatedFlightCostPerPerson * newTripTravelers +
+      newTripDestination.estimatedLodgingCostPerDay * newTripDuration) *
+    1.1;
+  return newTripCost.toFixed(2);
 };
 
 const createTripCard = (trip, destination) => {
@@ -115,53 +160,14 @@ const createTripCard = (trip, destination) => {
   return currentTripCard;
 };
 
-const calculateAnnualExpenditures = () => {
-  const userTrips = tripRepo.filterTripsByTraveler(currentTraveler.id);
-  //console.log(userTrips)
-  const result = userTrips.reduce((acc, trip) => {
-    if (trip.date.includes("2022") && trip.status === "approved") {
-      acc += trip.cost;
-    }
-    return acc;
-  }, 0);
-  return result.toFixed(2);
+
+const clearInput = () => {
+  destinationsDropDown.value = "";
+  durationInput.value = "";
+  guestsInput.value = "";
+  bookingDateInput.value = "";
+  estimateMessage.innerHTML = "";
 };
-
-const displayAmountSpent = () => {
-  let amountSpent = calculateAnnualExpenditures();
-  expenditures.innerHTML = `You've spent a total of $${amountSpent} on travel this year!`;
-};
-
-const loadDestinationOptions = () => {
-  destinationRepo.data.forEach(destination => {
-    destinationsDropDown.innerHTML += `<option value="${destination.id}">${destination.destination}</option>`;
-  });
-  return;
-};
-
-const displayTripEstimate = event => {
-  let estimate = calculateEstimatedCost();
-  estimateMessage.innerHTML = `Your estimated trip cost is $${estimate}! Press "Book trip" to confirm or choose a different trip!`;
-};
-
-const calculateEstimatedCost = form => {
-  event.preventDefault();
-  let newTripDestination = destinationRepo.findDestination(
-    parseInt(destinationsDropDown.value)
-  );
-  let newTripDuration = durationInput.value;
-  let newTripTravelers = guestsInput.value;
-  let newTripCost =
-    (newTripDestination.estimatedFlightCostPerPerson * newTripTravelers +
-      newTripDestination.estimatedLodgingCostPerDay * newTripDuration) *
-    1.1;
-  return newTripCost.toFixed(2);
-};
-
-
-const getRandomIndex = (array) => {
-  return Math.floor(Math.random() * array.length);
-}
 
 const postData = event => {
   event.preventDefault();
@@ -171,6 +177,10 @@ const postData = event => {
     fetchApiCalls(currentTraveler.id);
   });
 };
+
+const getRandomIndex = (array) => {
+  return Math.floor(Math.random() * array.length);
+}
 
 //Event Listeners
 window.addEventListener("load", fetchApiCalls());
