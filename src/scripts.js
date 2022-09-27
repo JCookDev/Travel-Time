@@ -44,6 +44,19 @@ const fetchApiCalls = () => {
   });
 };
 
+const getTravelerInputData = form => {
+  return {
+    id: parseInt(tripRepo.data.length + 1),
+    userID: parseInt(currentTraveler.id),
+    destinationID: parseInt(form[0].value),
+    travelers: parseInt(form[3].value),
+    date: dayjs(form[1].value).format("YYYY/MM/DD"),
+    duration: parseInt(form[2].value),
+    status: "pending",
+    suggestedActivities: []
+  };
+};
+
 const loadPage = () => {
   greetTraveler();
   loadDestinationOptions();
@@ -150,7 +163,17 @@ const getRandomIndex = (array) => {
   return Math.floor(Math.random() * array.length);
 }
 
+const postData = event => {
+  event.preventDefault();
+  const result = getTravelerInputData(event.target.form);
+  apiCalls.postTripInfo(result).then(() => {
+    tripCards.innerHTML = "";
+    fetchApiCalls(currentTraveler.id);
+  });
+};
+
 //Event Listeners
 window.addEventListener("load", fetchApiCalls());
 estimateButton.addEventListener("click", calculateEstimatedCost);
 estimateButton.addEventListener("click", displayTripEstimate);
+submitButton.addEventListener("click", postData);
