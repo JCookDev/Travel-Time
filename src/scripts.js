@@ -1,3 +1,4 @@
+import "normalize.css"
 import './css/styles.css';
 import TravelerRepo from "./Traveler-Repo";
 import TripRepo from "./Trip-Repo";
