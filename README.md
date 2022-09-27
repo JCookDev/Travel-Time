@@ -25,6 +25,8 @@ You will now be able to experience Bon Voyage.
 # Technologies
 Project spec & rubric can be found [here](https://frontend.turing.edu/projects/travel-tracker.html).
 
+<img width="1275" alt="Screen Shot 2022-09-27 at 10 06 04 AM" src="https://user-images.githubusercontent.com/100865025/192549992-fb4f576c-e2b0-4345-8bf8-1ab1f78a84dc.png">
+
 ## Sources & Technologies Used:
 * JavaScript
 * HTML
