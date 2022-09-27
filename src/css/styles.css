@@ -44,6 +44,13 @@ button, input, optgroup, select, textarea {
   margin: 10;
 }
 
+.login-form {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 3rem;
+  justify-content: center;
+}
+
 .main__menu-text {
   padding-left: 2rem;
   font-family: 'Kaushan Script', cursive;
@@ -51,10 +58,18 @@ button, input, optgroup, select, textarea {
   color: #0f0164
 }
 
+.logout-button {
+  margin-right: 2rem;
+}
+
 .book-trip {
   background: rgba(255, 255, 255, 0.6);
   padding: 2rem;
   border-radius: 1rem;
+}
+
+.submit-password {
+  height: 2rem;
 }
 
 .trip-cards {
