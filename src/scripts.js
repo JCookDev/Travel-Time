@@ -126,10 +126,25 @@ const loadDestinationOptions = () => {
   return;
 };
 
+const calculateEstimatedCost = form => {
+  event.preventDefault();
+  let newTripDestination = destinationRepo.findDestination(
+    parseInt(destinationsDropDown.value)
+  );
+  let newTripDuration = durationInput.value;
+  let newTripTravelers = guestsInput.value;
+  let newTripCost =
+    (newTripDestination.estimatedFlightCostPerPerson * newTripTravelers +
+      newTripDestination.estimatedLodgingCostPerDay * newTripDuration) *
+    1.1;
+  return newTripCost.toFixed(2);
+};
+
 
 const getRandomIndex = (array) => {
   return Math.floor(Math.random() * array.length);
 }
 
+//Event Listeners
 window.addEventListener("load", fetchApiCalls());
-console.log('This is the JavaScript entry file - your code begins here.');
+estimateButton.addEventListener("click", calculateEstimatedCost);
