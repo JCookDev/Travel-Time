@@ -14,6 +14,15 @@ const fetchData = () => {
   ]);
 };
 
+const fetchUser = id => {
+  return Promise.all([
+    fetch(`http://localhost:3001/api/v1/travelers/${id}`)
+      .then(response => response.json())
+      .then(data => data)
+      .catch(error => console.log(`Travelers API error!`))
+  ]);
+};
+
 const postTripInfo = formData => {
   return fetch("http://localhost:3001/api/v1/trips", {
     method: "POST",
@@ -37,4 +46,4 @@ const postTripInfo = formData => {
     });
   };
 
-export default { fetchData, postTripInfo };
+export default { fetchData, fetchUser, postTripInfo };
