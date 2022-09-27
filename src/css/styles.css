@@ -1,3 +1,145 @@
-body {
-  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+body,
+html {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  background: no-repeat center center fixed;
+  background-color: hsl(210, 32%, 93%);
+  background-size: cover;
+  color: hsl(212, 18%, 35%);
+}
+
+main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+nav {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 2rem;
+  align-items: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+button {
+  border-radius: 1rem;
+  width: 5rem;
+  padding: 1px;
+  background-color: #3a2e81;
+  color: white;
+  font-weight: bolder;
+  height: 1.75rem;
+}
+
+button, input, optgroup, select, textarea {
+  font-family: inherit;
+  font-size: 10px;
+  line-height: 1.15;
+  margin: 10;
+}
+
+.main__menu-text {
+  padding-left: 2rem;
+  font-family: 'Kaushan Script', cursive;
+  font-weight: 400;
+  color: #0f0164
+}
+
+.book-trip {
+  background: rgba(255, 255, 255, 0.6);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.trip-cards {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.trip-card {
+  display: grid;
+  grid-template-rows: max-content 6rem;
+  background-color: hsl(240, 34%, 34%);
+  width: 17rem;
+}
+
+.trip-card img {
+  object-fit: cover;
+  width: 100%;
+  height: 12rem;
+}
+
+.trip-header {
+  padding: 0 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trip-header h3, h4 {
+  margin-bottom: 1rem;
+  color: hsl(188, 100%, 85%);
+}
+
+.trip-details {
+  display: flex;
+  flex-direction: row;
+  padding-top: 3rem;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1rem;
+  padding: 1rem;
+  color: hsl(188, 100%, 85%);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 4rem;
+}
+
+.trip-card footer {
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: hsl(188, 100%, 85%);
+}
+
+.category {
+   width: 100%;
+   margin-top: 0;
+   padding: 0.25rem;
+   text-align: center;
+   text-transform: uppercase;
+   letter-spacing: 0.5rem;
+   border-radius: 0 0 0.5rem 0.5rem;
+   font-weight: 700;
+   color: #ffffff;
+}
+
+.past-category {
+   background-color: #fbcbb9;
+   color: #333333;
+}
+
+.upcoming-category {
+   background-color: #990649;
 }
