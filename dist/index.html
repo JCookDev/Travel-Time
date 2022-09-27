@@ -13,8 +13,33 @@
   <main>
     <nav>
      <h1 class="main__menu-text">Bon Voyage</h1>
+     <button class="logout-button hidden">logout</button>
    </nav>
-    <section class="main-section">
+   <section class="login-section" id="loginSection">
+        <p>Start your next journey!</p>
+        <form class="login-form">
+          <label for="user-name">
+            <input
+              class="user-name"
+              id="userName"
+              name="user-name"
+              type="text"
+            />
+          </label>
+          <label for="password">
+            <input
+              class="password"
+              id="password"
+              name="password"
+              type="password"
+            />
+          </label>
+        </form>
+        <button type="submit" class="submit-password" id="submitPasswordButton">
+          Submit
+        </button>
+      </section>
+    <section class="main-section hidden">
      <header class="main nav--bar">
        <section>
          <h2 id="welcomeMessage">Welcome back, [user]!</h2>
