@@ -23,14 +23,14 @@ const userName = document.querySelector("#userName");
 const password = document.querySelector("#password");
 const submitPasswordButton = document.querySelector("#submitPasswordButton");
 const loginSection = document.querySelector("#loginSection");
-const mainSelection = document.querySelector(".main-section");
+const mainSection = document.querySelector(".main-section");
 const logoutButton = document.querySelector(".logout-button");
 
 //Global Variables
 let today = dayjs().format("YYYY/MM/DD");
 let travelerRepo, tripRepo, destinationRepo;
 let currentTraveler;
-//let travelerInput;
+let userID;
 
 //Functions
 const fetchApiCalls = () => {
@@ -38,8 +38,6 @@ const fetchApiCalls = () => {
     let travelerData = data[0].travelers;
     let tripData = data[1].trips;
     let destinationData = data[2].destinations;
-    currentTraveler = new Traveler(travelerData[getRandomIndex(travelerData)])
-    //console.log(currentTraveler);
     travelerRepo = new TravelerRepo(travelerData);
     travelerRepo.instantiateTraveler();
     tripRepo = new TripRepo(tripData);
@@ -74,6 +72,42 @@ const loadPage = () => {
 
 const toggleHidden = element => {
   element.classList.toggle("hidden");
+};
+
+const fetchUserCall = userID => {
+  apiCalls.fetchUser(userID).then(data => {
+    currentTraveler = new Traveler(data[0]);
+    console.log(currentTraveler);
+    tripCards.innerHTML = "";
+    fetchApiCalls(userID);
+    toggleHidden(loginSection);
+    toggleHidden(mainSection);
+    toggleHidden(logoutButton);
+  });
+};
+
+const verifyCredentials = () => {
+  event.preventDefault();
+  let user = userName.value.substring(0, 8);
+  userID = userName.value.substring(8);
+  if (
+    password.value === "travel" &&
+    user === "traveler" &&
+    userID <= 50 &&
+    userID >= 1
+  ) {
+    fetchUserCall(userID);
+    return userID;
+  } else {
+    alert("Incorrect username or password! Try again!");
+  }
+};
+
+const returnToLoginPage = () => {
+  event.preventDefault();
+  toggleHidden(loginSection);
+  toggleHidden(mainSection);
+  toggleHidden(logoutButton);
 };
 
 const greetTraveler = () => {
@@ -112,7 +146,6 @@ const displayTripCards = () => {
     trip.getTripTimeFrame(trip);
 
     tripCards.appendChild(createTripCard(trip, destination));
-    //console.log(tripRepo.tripList);
   });
   clearInput();
 };
@@ -194,7 +227,8 @@ const getRandomIndex = (array) => {
 }
 
 //Event Listeners
-window.addEventListener("load", fetchApiCalls());
 estimateButton.addEventListener("click", calculateEstimatedCost);
 estimateButton.addEventListener("click", displayTripEstimate);
 submitButton.addEventListener("click", postData);
+submitPasswordButton.addEventListener("click", verifyCredentials);
+logoutButton.addEventListener("click", returnToLoginPage);
