@@ -126,6 +126,11 @@ const loadDestinationOptions = () => {
   return;
 };
 
+const displayTripEstimate = event => {
+  let estimate = calculateEstimatedCost();
+  estimateMessage.innerHTML = `Your estimated trip cost is $${estimate}! Press "Book trip" to confirm or choose a different trip!`;
+};
+
 const calculateEstimatedCost = form => {
   event.preventDefault();
   let newTripDestination = destinationRepo.findDestination(
@@ -148,3 +153,4 @@ const getRandomIndex = (array) => {
 //Event Listeners
 window.addEventListener("load", fetchApiCalls());
 estimateButton.addEventListener("click", calculateEstimatedCost);
+estimateButton.addEventListener("click", displayTripEstimate);
