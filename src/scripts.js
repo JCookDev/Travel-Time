@@ -19,6 +19,12 @@ const estimateButton = document.querySelector("#estimateButton");
 const submitButton = document.querySelector("#submitButton");
 const estimateMessage = document.querySelector("#estimateMessage");
 const tripCards = document.querySelector(".trip-cards");
+const userName = document.querySelector("#userName");
+const password = document.querySelector("#password");
+const submitPasswordButton = document.querySelector("#submitPasswordButton");
+const loginSection = document.querySelector("#loginSection");
+const mainSelection = document.querySelector(".main-section");
+const logoutButton = document.querySelector(".logout-button");
 
 //Global Variables
 let today = dayjs().format("YYYY/MM/DD");
@@ -64,6 +70,10 @@ const loadPage = () => {
   displayTripCards();
   calculateAnnualExpenditures();
   displayAmountSpent();
+};
+
+const toggleHidden = element => {
+  element.classList.toggle("hidden");
 };
 
 const greetTraveler = () => {
