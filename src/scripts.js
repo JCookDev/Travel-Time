@@ -30,7 +30,6 @@ const logoutButton = document.querySelector(".logout-button");
 let today = dayjs().format("YYYY/MM/DD");
 let travelerRepo, tripRepo, destinationRepo;
 let currentTraveler;
-//let travelerInput;
 let userID;
 
 //Functions
@@ -39,8 +38,6 @@ const fetchApiCalls = () => {
     let travelerData = data[0].travelers;
     let tripData = data[1].trips;
     let destinationData = data[2].destinations;
-    //currentTraveler = new Traveler(travelerData[getRandomIndex(travelerData)])
-    //console.log(currentTraveler);
     travelerRepo = new TravelerRepo(travelerData);
     travelerRepo.instantiateTraveler();
     tripRepo = new TripRepo(tripData);
@@ -106,6 +103,13 @@ const verifyCredentials = () => {
   }
 };
 
+const returnToLoginPage = () => {
+  event.preventDefault();
+  toggleHidden(loginSection);
+  toggleHidden(mainSection);
+  toggleHidden(logoutButton);
+};
+
 const greetTraveler = () => {
   welcomeMessage.innerHTML = `Welcome back, ${currentTraveler.returnFirstName()}!`;
 };
@@ -142,7 +146,6 @@ const displayTripCards = () => {
     trip.getTripTimeFrame(trip);
 
     tripCards.appendChild(createTripCard(trip, destination));
-    //console.log(tripRepo.tripList);
   });
   clearInput();
 };
@@ -224,8 +227,8 @@ const getRandomIndex = (array) => {
 }
 
 //Event Listeners
-//window.addEventListener("load", fetchApiCalls());
 estimateButton.addEventListener("click", calculateEstimatedCost);
 estimateButton.addEventListener("click", displayTripEstimate);
 submitButton.addEventListener("click", postData);
 submitPasswordButton.addEventListener("click", verifyCredentials);
+logoutButton.addEventListener("click", returnToLoginPage);
