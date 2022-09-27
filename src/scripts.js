@@ -46,6 +46,7 @@ const fetchApiCalls = () => {
 
 const loadPage = () => {
   greetTraveler();
+  loadDestinationOptions();
   displayTripCards();
   calculateAnnualExpenditures();
   displayAmountSpent();
@@ -116,6 +117,13 @@ const calculateAnnualExpenditures = () => {
 const displayAmountSpent = () => {
   let amountSpent = calculateAnnualExpenditures();
   expenditures.innerHTML = `You've spent a total of $${amountSpent} on travel this year!`;
+};
+
+const loadDestinationOptions = () => {
+  destinationRepo.data.forEach(destination => {
+    destinationsDropDown.innerHTML += `<option value="${destination.id}">${destination.destination}</option>`;
+  });
+  return;
 };
 
 

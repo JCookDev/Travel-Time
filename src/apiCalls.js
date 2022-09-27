@@ -35,5 +35,6 @@ const postTripInfo = formData => {
     .catch(err => {
       console.log(err);
     });
+  };
 
 export default { fetchData, postTripInfo };
